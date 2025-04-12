@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulaire</title>
+  <link rel="stylesheet" href="code02.css">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Formulaire Inscription pour le Projet Appliction Web</h2>
+    <form>
+       <!--nom prenom-->
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Saisir votre nom" />
+      </div>
+
+      <div class="form-group">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Saisir votre prénom" />
+      </div>
+       <!--date-->
+      <div class="form-group">
+        <label for="date">Date d'obtention du bac</label>
+        <input type="date" id="date" name="date" />
+      </div>
+       <!--email-->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Saisir votre email" />
+      </div>
+      <!--les points de section-->
+     <div class="form-group">
+        <label>Section</label>
+        <div class="radio-group">
+          <label class="inline"><input type="radio" name="section" value="A"> A</label>
+          <label class="inline"><input type="radio" name="section" value="B"> B</label>
+        </div>
+      </div>
+       <!--photo-->
+      <div class="form-group">
+        <label for="photo">Photo</label>
+        <input type="file" id="photo" name="photo" />
+      </div>
+
+       <!--les groupe-->
+      <div class="form-group">
+        <label for="group">Group</label>
+        <select id="group" name="group">
+          <option value="A1">A1</option>
+          <option value="A2">A2</option>
+          <option value="A3">A3</option>
+          <option value="A4">A4</option>
+          <option value="A5">A5</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+          <option value="B3">B3</option>
+          <option value="B4">B4</option>
+          <option value="B5">B5</option>
+        </select>
+      </div>
+       <!--liste de langage-->
+      <div class="form-group">
+        <label for="language">Language maîtrisé</label>
+        <select id="language" name="language">
+          <option value="">Language</option>
+          <option value="HTML">HTML</option>
+          <option value="CSS">CSS</option>
+          <option value="JAVASCRIPT">JAVASCRIPT</option>
+          <option value="PHP">PHP</option>
+        </select>
+      </div>
+       <!--theme-->
+      <div class="form-group">
+        <label>Thème préféré</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="theme" value="departement"> Site Web pour le département informatique</label>
+          <label><input type="checkbox" name="theme" value="laboratoire"> Site web pour laboratoire de recherche</label>
+          <label><input type="checkbox" name="theme" value="tourisme"> Site web pour la promotion touristique en Algérie</label>
+        </div>
+      </div>
+      <!--the switch-->
+       <div class="form-group">
+        <label for="techSlider">Maîtrise des technologies Web</label>
+        <input type="range" id="techSlider" name="tech-level" min="0" max="10" value="5">
+       </div>
+        <!--the circule active wind-->
+      <div class="switch-container">
+        <span class="switch-label">Activer Wind</span>
+        <label class="switch">
+          <input type="checkbox" name="wind">
+          <span class="slider"></span>
+        </label>
+      </div>
+       <!--link-->
+      <div class="form-group">
+        <label for="site-web">Lien du site Web</label>
+        <input type="url" id="site-web" name="site-web" placeholder="http://">
+      </div>
+        <!--button envoyer annuler-->
+      <div class="form-group button-group">
+        <button type="submit" class="submit-btn">Envoyer</button>
+        <button type="reset" class="cancel-btn">Annuler</button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>
+
