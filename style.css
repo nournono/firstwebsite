@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100vh;
+    background-color: #fab1a0;
+    border-right: 2px solid black;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    z-index: 10;
+    padding-top: 10px;
+    color: #BDC581;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+/* ==== TOGGLE BUTTON ==== */
+.menu-toggle {
+    color: lightpink;
+    font-size: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: courier;
+}
+
+/* ==== LOGO TEXT ==== */
+.logo-text {
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-family: courier;
+}
+
+.sidebar:hover .logo-text {
+    opacity: 1;
+}
+
+/* ==== TOP HEADER ==== */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 60px;
+    right: 0;
+    height: 68px;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 2px solid;
+    z-index: 999;
+    background-color: #fab1a0;
+}
+
+.sidebar:hover ~ .top-header {
+    left: 200px;
+    width: calc(100% - 200px);
+}
+
+/* ==== MENU ==== */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: courier;
+}
+
+
+.menu li a{
+    display: flex;
+
+    align-items: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-family: courier;
+    border-bottom: 1px solid pink;
+}
+
+.menu li a:hover {
+    background-color: pink;
+}
+
+/* ==== ICONS ==== */
+.icon {
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+    font-family: courier;
+}
+
+.text {
+    font-family: courier;
+    opacity: 0;
+    white-space: nowrap;
+    margin-left: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .text {
+    opacity: 1;
+}
+/* ==== MAIN CONTENT ==== */
+.main-content {
+    margin-left: 60px;
+    padding: 100px 30px 30px 30px; /* top, right, bottom, left */
+}
+
+.sidebar:hover ~ .main-content {
+    margin-left: 200px;
+}
+
+a {
+    color: #10ac84;
+    font-size: 30px;
+    font-family: Arial;
+}
+
+.DV_image {
+    color: yellow;
+}
