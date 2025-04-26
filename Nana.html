@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تفجر قلوب وقطط وأسماء</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      transition: background 1s;
+    }
+    .heart {
+      font-size: 100px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      z-index: 2;
+    }
+    .heart:hover {
+      transform: scale(1.2);
+    }
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+      font-size: 30px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+    }
+    .shake {
+      animation: shake 0.5s;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(5px, 5px) rotate(5deg); }
+      50% { transform: translate(-5px, -5px) rotate(-5deg); }
+      75% { transform: translate(5px, -5px) rotate(5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .flash.active {
+      animation: flashEffect 0.8s;
+    }
+    @keyframes flashEffect {
+      0% { opacity: 0.8; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="flash" id="flash"></div>
+<div class="heart" id="heart">❤️</div>
+
+<audio id="popSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_b3e5e5f2cc.mp3?filename=pop-94319.mp3" preload="auto"></audio>
+
+<script>
+  const heart = document.getElementById('heart');
+  const flash = document.getElementById('flash');
+  const popSound = document.getElementById('popSound');
+  const body = document.body;
+
+  const emojis = [
+    '❤️', '🐱', '❤️‍🔥', '💕', '💖', 
+    'ilyes', 'Nour', 'sky', 'Nour', 'ilyes', 'sky'
+  ];
+  const backgroundColors = [
+    'linear-gradient(135deg, #ff9a9e, #fad0c4)',
+    'linear-gradient(135deg, #a18cd1, #fbc2eb)',
+    'linear-gradient(135deg, #fcb69f, #ffecd2)',
+    'linear-gradient(135deg, #f6d365, #fda085)',
+    'linear-gradient(135deg, #cfd9df, #e2ebf0)',
+    'linear-gradient(135deg, #ffdde1, #ee9ca7)',
+    'linear-gradient(135deg, #89f7fe, #66a6ff)',
+    'linear-gradient(135deg, #ff7eb9, #ff65a3)',
+    'linear-gradient(135deg, #c471f5, #fa71cd)'
+  ];
+
+  heart.addEventListener('click', () => {
+    popSound.currentTime = 0;
+    popSound.play();
+
+    flash.classList.add('active');
+    setTimeout(() => {
+      flash.classList.remove('active');
+    }, 800);
+
+    heart.classList.add('shake');
+    setTimeout(() => {
+      heart.classList.remove('shake');
+    }, 500);
+
+    changeBackground();
+
+    for (let i = 0; i < 20; i++) {  // تقليل عدد العناصر
+      createParticle();
+    }
+  });
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    const item = emojis[Math.floor(Math.random() * emojis.length)];
+    particle.innerText = item;
+    
+    const size = Math.random() * 25 + 20;  // تقليل الحجم قليلاً
+    particle.style.fontSize = size + 'px';
+
+    particle.style.left = heart.offsetLeft + heart.offsetWidth / 2 + 'px';
+    particle.style.top = heart.offsetTop + heart.offsetHeight / 2 + 'px';
+    
+    particle.style.color = getRandomColor();
+
+    document.body.appendChild(particle);
+
+    const x = (Math.random() - 0.5) * 600;  // تقليل المسافة
+    const y = (Math.random() - 0.5) * 600;  // تقليل المسافة
+    const rotate = Math.random() * 720;
+
+    particle.animate([
+      { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${x}px, ${y}px) rotate(${rotate}deg)`, opacity: 0 }
+    ], {
+      duration: 2000,  // تقليل مدة الحركة
+      easing: 'ease-out'
+    });
+
+    setTimeout(() => {
+      particle.remove();
+    }, 2000);  // تقليل المدة
+  }
+
+  function getRandomColor() {
+    const colors = [
+      '#ff6f91', '#ff9671', '#ffc75f', '#f9f871',
+      '#d65db1', '#845ec2', '#00c9a7', '#ff7eb9', '#ff65a3', '#7afcff'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  function changeBackground() {
+    const randomBg = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+    body.style.background = randomBg;
+  }
+</script>
+
+</body>
+</html>
