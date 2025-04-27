@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لونك وتوكيدك اليومي</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e0eafc);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            color: #6c5ce7;
+            font-size: 2.7em;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease;
+        }
+        input {
+            padding: 12px 20px;
+            font-size: 1.2em;
+            border: 2px solid #6c5ce7;
+            border-radius: 25px;
+            outline: none;
+            margin-bottom: 15px;
+            width: 260px;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #a29bfe;
+            background-color: #f0f0ff;
+        }
+        button {
+            padding: 10px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #6c5ce7;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #a29bfe;
+        }
+        #welcomeMessage {
+            font-size: 1.5em;
+            color: #6c5ce7;
+            margin-top: 15px;
+            animation: fadeInUp 1.5s ease;
+        }
+        #colorDisplay {
+            margin-top: 30px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0px 8px 15px rgba(0,0,0,0.2);
+            background-color: #eee;
+            transition: background-color 1s ease;
+        }
+        #description {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #555;
+            max-width: 300px;
+            animation: fadeInUp 1.5s ease;
+        }
+        #affirmation {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ff6b81;
+            font-weight: bold;
+            animation: fadeIn 2s ease;
+            max-width: 300px;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            transform: rotate(45deg);
+            animation: float 4s linear infinite;
+            opacity: 0.8;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            border-radius:border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        @keyframes fadeInUp {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+    <h1>لونك وتوكيدك الجميل لليوم!</h1>
+    <input type="text" id="nameInput" placeholder="ادخل اسمك هنا">
+    <br>
+    <button onclick="generateColor()">اعرف لونك وتوكيدك</button>
+
+    <div id="welcomeMessage"></div>
+    <div id="colorDisplay"></div>
+    <div id="description"></div>
+    <div id="affirmation"></div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/10/13/audio_a71ce16c26.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+
+    <script>
+        function generateColor() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (name === "") {
+                alert("رجاءً اكتب اسمك أولاً!");
+                return;
+            }
+
+            const gender = detectGender(name);
+
+            if (gender === "female") {
+                document.getElementById('welcomeMessage').innerText = `أهلاً بكِ يا ${name} الجميلة!`;
+            } else if (gender === "male") {
+                document.getElementById('welcomeMessage').innerText = `أهلاً بك يا ${name} الرائع!`;
+            } else {
+                document.getElementById('welcomeMessage').innerText = `أهلاً بك يا ${name}!`;
+            }
+
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+
+            const r = (hash >> 16) & 0xFF;
+            const g = (hash >> 8) & 0xFF;
+            const b = hash & 0xFF;
+            const color = `rgb(${r}, ${g}, ${b})`;
+
+            document.getElementById('colorDisplay').style.backgroundColor = color;
+
+            const description = getPersonalityDescription(r, g, b);
+            document.getElementById('description').innerText = description;
+
+            const affirmation = getAffirmation();
+            document.getElementById('affirmation').innerText = affirmation;
+
+            const music = document.getElementById('backgroundMusic');
+            music.volume = 0.3;
+            music.play();
+
+            for (let i = 0; i < 20; i++) {
+                createHeart();
+            }
+        }
+
+        function detectGender(name) {
+            const femaleNames = ["سارة", "فاطمة", "ريم", "ندى", "هدى", "أمل", "رنا", "ليلى", "نور", "سلمى", "مريم", "جنى"];
+            const maleNames = ["محمد", "أحمد", "علي", "خالد", "سعيد", "عمر", "سلمان", "ماجد", "فهد", "يوسف", "حسن", "ياسر"];
+
+            if (femaleNames.includes(name)) {
+                return "female";
+            } else if (maleNames.includes(name)) {
+                return "male";
+            } else {
+                if (name.endsWith("ة") || name.endsWith("ى") || name.endsWith("ا")) {
+                    return "female";
+                } else {
+                    return "male";
+                }
+            }
+        }
+
+        function getPersonalityDescription(r, g, b) {
+            const brightness = (r * 0.299 + g * 0.587 + b * 0.114);
+
+            if (brightness > 200) {
+                return "أنتِ مثل الشمس، تنشرين النور أينما حللتِ.";
+            } else if (brightness > 150) {
+                return "أنتِ مليئة بالحياة والطاقة الإيجابية.";
+            } else if (brightness > 100) {
+                return "أنتِ لطيفة ورقيقة، تملئين العالم بالسلام.";
+            } else if (brightness > 50) {
+                return "أنتِ غامضة وساحرة بطريقة لا يمكن مقاومتها.";
+            } else {
+                return "أنتِ قوية، تقفين بشموخ رغم كل التحديات.";
+            }
+        }
+
+        function getAffirmation() {
+            const affirmations = [
+                "أنا أستحق الحب والسعادة.",
+                "أنا محاطة بالطاقة الإيجابية.",
+                "أنا أثق بنفسي وبقدراتي.",
+                "كل يوم يحمل لي فرصاً رائعة.",
+                "أنا أشرق بالجمال من الداخل والخارج.",
+                "أنا ممتنة لكل الأشياء الجميلة في حياتي.",
+                "أنا قوية وقادرة على تحقيق أحلامي.",
+                "أنا مصدر إلهام لكل من حولي.",
+                "أنا أستقبل الخير بحب وفرح.",
+                "أنا أختار السعادة اليوم وكل يوم."
+            ];
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            return affirmations[randomIndex];
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+    </script>
+
+</body>
+</html>
