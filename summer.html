@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summer Time Videos</title>
+  <style>
+    h1 {
+      color: #e7bf6a;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-image: url("/storage/emulated/0/Pictures/100PINT/Pins/65e2c84af2e27f56d170867a30eba7a1.jpg");
+      background-repeat: no-repeat;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .videos-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      padding: 20px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .videos {
+      display: flex;
+      gap: 30px;
+      padding: 0 20px;
+      width: max-content;
+    }
+    
+    .video-container {
+      width: 300px;
+      height: 550px;
+      border: 10px solid white;
+      border-radius: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    
+    .video-container:hover {
+      transform: scale(1.03);
+    }
+    
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* شريط التمرير مخفي ولكن فعال */
+    .videos-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .video-container {
+        width: 280px;
+        height: 500px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Summer Time🦋💗⛱️</h1>
+
+<div class="videos-wrapper">
+  <div class="videos" id="videos">
+    <!-- الفيديو 1 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/de4e23c8fc7db4e48aab4b736cf7edc3.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 2 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/368f29bb53b0440792f5a1fd3283a5bb.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 3 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/75483e1d814fe0cd91e32763be49a483.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 4 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/ddd9291b7aa4450148e43c0804d2a885.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 5 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/73409fa598eb583b0896d93df02dde56.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 6 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/1b19990effde3ae23b7a916d8ceec5f0.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 7 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/7a7085d3e812047b6204d8fa335543c3.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 8 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/9f29573eccaf28316451a85b655b3c55.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- الفيديو 9 -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src="/storage/emulated/0/Download/b931b823e36670edc8666044a4993bbd.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+<script>
+  // تأكد من أن التمرير يعمل على جميع الأجهزة
+  const videosWrapper = document.querySelector('.videos-wrapper');
+  
+  // إضافة مؤشر أن هناك المزيد للتمرير
+  let isScrollable = videosWrapper.scrollWidth > videosWrapper.clientWidth;
+  
+  if (isScrollable) {
+    videosWrapper.style.cursor = 'grab';
+    
+    let isDragging = false;
+    let startX, scrollLeft;
+    
+    videosWrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.pageX - videosWrapper.offsetLeft;
+      scrollLeft = videosWrapper.scrollLeft;
+      videosWrapper.style.cursor = 'grabbing';
+    });
+    
+    videosWrapper.addEventListener('mouseleave', () => {
+      isDragging = false;
+      videosWrapper.style.cursor = 'grab';
+    });
+    
+    videosWrapper.addEventListener('mouseup', () => {
+      isDragging = false;
+      videosWrapper.style.cursor = 'grab';
+    });
+    
+    videosWrapper.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - videosWrapper.offsetLeft;
+      const walk = (x - startX) * 2;
+      videosWrapper.scrollLeft = scrollLeft - walk;
+    });
+  }
+</script>
+
+</body>
+</html>
